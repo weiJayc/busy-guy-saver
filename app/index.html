@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>任務排程助手</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="toolbar">
+  <h1>任務排程助手</h1>
+  <div class="file-status">
+    <span id="fileStatusText">尚未連接檔案</span>
+    <button id="connectBtn" type="button">選擇 / 建立 tasks.json</button>
+    <span class="file-hint">還沒有檔案也沒關係：在跳出的存檔視窗中，把檔名留著（或打成 tasks.json）直接按「存檔」，就會建立新檔案。</span>
+  </div>
+  <button id="addTaskBtn" type="button" disabled>+ 新增任務</button>
+</header>
+
+<main>
+  <p id="unsupportedNotice" class="notice hidden">
+    這個瀏覽器不支援 File System Access API，請改用 Chrome 或 Edge 開啟本頁面。
+  </p>
+  <p id="emptyState" class="notice hidden">目前沒有任務。點右上角「新增任務」開始。</p>
+  <table id="taskTable" class="hidden">
+    <thead>
+      <tr>
+        <th>任務名稱</th>
+        <th>標籤</th>
+        <th>建議策略</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="taskTableBody"></tbody>
+  </table>
+</main>
+
+<div id="modalOverlay" class="modal-overlay hidden">
+  <div class="modal">
+    <h2 id="modalTitle">新增任務</h2>
+
+    <label class="field">
+      任務名稱
+      <input id="taskName" type="text" placeholder="例如：寫季度報告">
+    </label>
+
+    <div id="axisGroups"></div>
+
+    <div id="suggestionPanel" class="suggestion-panel">
+      <p class="suggestion-hint">選擇 A / B / C / D 四個標籤後，這裡會顯示建議策略。</p>
+    </div>
+
+    <div class="modal-actions">
+      <button id="cancelBtn" type="button">取消</button>
+      <button id="saveBtn" type="button">儲存</button>
+    </div>
+  </div>
+</div>
+
+<script src="rules.js"></script>
+<script src="storage.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
