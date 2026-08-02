@@ -1,0 +1,196 @@
+:root {
+  color-scheme: light dark;
+  --border: #d0d0d5;
+  --bg-subtle: rgba(127, 127, 127, 0.08);
+  --accent: #3a6cf6;
+  --warn-bg: rgba(230, 80, 60, 0.12);
+  --warn-border: #c0392b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  line-height: 1.5;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.toolbar h1 {
+  font-size: 1.25rem;
+  margin: 0;
+  flex: 1 0 auto;
+}
+
+.file-status {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.5rem;
+  font-size: 0.9rem;
+  opacity: 0.85;
+  max-width: 22rem;
+}
+
+.file-hint {
+  flex-basis: 100%;
+  font-size: 0.78rem;
+  opacity: 0.7;
+}
+
+button {
+  font: inherit;
+  border: 1px solid var(--border);
+  background: var(--bg-subtle);
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) { border-color: var(--accent); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+#addTaskBtn {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.notice {
+  padding: 1rem;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  opacity: 0.8;
+}
+
+table { width: 100%; border-collapse: collapse; }
+th, td {
+  text-align: left;
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+th { font-size: 0.85rem; opacity: 0.7; font-weight: 600; }
+
+.code-badge {
+  display: inline-block;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.8rem;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+}
+.code-badge.conflict {
+  border-color: var(--warn-border);
+  color: var(--warn-border);
+}
+
+.row-actions { white-space: nowrap; }
+.row-actions button { margin-right: 0.4rem; }
+
+.hidden { display: none !important; }
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 1rem;
+  overflow-y: auto;
+}
+
+.modal {
+  background: Canvas;
+  color: CanvasText;
+  border-radius: 10px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 620px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.modal h2 { margin-top: 0; }
+
+.field {
+  display: block;
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+.field input {
+  display: block;
+  width: 100%;
+  font: inherit;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+}
+
+.axis-group { margin-bottom: 1rem; }
+.axis-group h3 {
+  font-size: 0.85rem;
+  margin: 0 0 0.4rem;
+  opacity: 0.8;
+}
+.axis-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+.tag-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 8px;
+  text-align: left;
+  min-width: 7rem;
+}
+.tag-btn .code { font-family: ui-monospace, Consolas, monospace; font-weight: 700; }
+.tag-btn .label { font-size: 0.75rem; opacity: 0.75; }
+.tag-btn.selected {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+.tag-btn.selected .label { opacity: 0.9; }
+
+.suggestion-panel {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.2rem;
+  background: var(--bg-subtle);
+}
+.suggestion-hint { margin: 0; opacity: 0.7; font-size: 0.9rem; }
+.suggestion-code { font-family: ui-monospace, Consolas, monospace; font-weight: 700; }
+.suggestion-panel.conflict {
+  background: var(--warn-bg);
+  border-color: var(--warn-border);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+#saveBtn {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
