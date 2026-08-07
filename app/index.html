@@ -10,30 +10,47 @@
 
 <header class="toolbar">
   <h1>任務排程助手</h1>
-  <div class="file-status">
-    <span id="fileStatusText">尚未連接檔案</span>
-    <button id="connectBtn" type="button">選擇 / 建立 tasks.json</button>
-    <span class="file-hint">還沒有檔案也沒關係：在跳出的存檔視窗中，把檔名留著（或打成 tasks.json）直接按「存檔」，就會建立新檔案。</span>
+  <div class="storage-status">
+    <span id="storageStatusText">尚未匯入檔案（新任務清單） · 0 筆任務</span>
+    <div class="storage-actions">
+      <button id="exportBtn" type="button">匯出 tasks.json</button>
+      <button id="importBtn" type="button">匯入 tasks.json</button>
+      <input id="importFileInput" type="file" accept="application/json,.json" class="hidden">
+    </div>
+    <span class="storage-hint">任務只存在記憶體中，不會自動儲存。開啟頁面後請先「匯入」既有的 tasks.json；新增/編輯/刪除後要按「匯出」下載存檔，否則重新整理頁面會遺失變更。</span>
   </div>
-  <button id="addTaskBtn" type="button" disabled>+ 新增任務</button>
+  <button id="addTaskBtn" type="button">+ 新增任務</button>
 </header>
 
+<nav class="tabs">
+  <button id="tabTasksBtn" type="button" class="tab-btn selected">任務清單</button>
+  <button id="tabOverviewBtn" type="button" class="tab-btn">每日總覽</button>
+</nav>
+
 <main>
-  <p id="unsupportedNotice" class="notice hidden">
-    這個瀏覽器不支援 File System Access API，請改用 Chrome 或 Edge 開啟本頁面。
-  </p>
-  <p id="emptyState" class="notice hidden">目前沒有任務。點右上角「新增任務」開始。</p>
-  <table id="taskTable" class="hidden">
-    <thead>
-      <tr>
-        <th>任務名稱</th>
-        <th>標籤</th>
-        <th>建議策略</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody id="taskTableBody"></tbody>
-  </table>
+  <section id="pageTasks" class="page">
+    <p id="emptyState" class="notice">目前沒有任務。點右上角「新增任務」開始。</p>
+    <table id="taskTable" class="hidden">
+      <thead>
+        <tr>
+          <th>任務名稱</th>
+          <th>標籤</th>
+          <th>緊急層級</th>
+          <th>投入型態 / 建議策略</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="taskTableBody"></tbody>
+    </table>
+  </section>
+
+  <section id="pageOverview" class="page hidden">
+    <p id="overviewEmptyState" class="notice">目前沒有任務，總覽會在你新增任務後自動整理。</p>
+    <div id="overviewContent" class="hidden">
+      <div id="overviewPriority" class="overview-priority hidden"></div>
+      <div id="overviewGroups" class="overview-groups"></div>
+    </div>
+  </section>
 </main>
 
 <div id="modalOverlay" class="modal-overlay hidden">
@@ -46,6 +63,12 @@
     </label>
 
     <div id="axisGroups"></div>
+
+    <div id="downstreamField" class="field downstream-field hidden">
+      下游實際需要的日期（選填 — INV-1：連鎖依賴不可能真的無期限）
+      <input id="downstreamDeadlineInput" type="date">
+      <span class="field-hint">留空的話，系統會自動降級視為軟期限（A2）；填了日期則視為硬期限（A1）。</span>
+    </div>
 
     <div id="suggestionPanel" class="suggestion-panel">
       <p class="suggestion-hint">選擇 A / B / C / D 四個標籤後，這裡會顯示建議策略。</p>
